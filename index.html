@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Célia Quadrado — Photographie</title>
+<style>
+  @font-face{ font-family:'Fraunces'; font-style:normal; font-weight:200; src:url('fonts/fraunces-200.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'Fraunces'; font-style:italic; font-weight:200; src:url('fonts/fraunces-200-italic.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'Fraunces'; font-style:normal; font-weight:300; src:url('fonts/fraunces-300.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'Fraunces'; font-style:italic; font-weight:300; src:url('fonts/fraunces-300-italic.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'Fraunces'; font-style:normal; font-weight:400; src:url('fonts/fraunces-400.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'Fraunces'; font-style:italic; font-weight:400; src:url('fonts/fraunces-400-italic.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'IBM Plex Mono'; font-style:normal; font-weight:400; src:url('fonts/ibm-plex-mono-400.woff2') format('woff2'); font-display:swap; }
+  @font-face{ font-family:'IBM Plex Mono'; font-style:normal; font-weight:500; src:url('fonts/ibm-plex-mono-500.woff2') format('woff2'); font-display:swap; }
+
+  :root{
+    --bg:#0a0a0a;
+    --text:#f4f2ee;
+    --muted:#8a8886;
+    --line:rgba(244,242,238,0.16);
+    --serif:'Fraunces', serif;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+  html{ scroll-behavior:smooth; overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden; }
+  *{ box-sizing:border-box; }
+  a{ color:var(--text); text-decoration:none; }
+  button{ touch-action:manipulation; }
+  ::selection{ background:var(--text); color:var(--bg); }
+  img,video{ max-width:100%; display:block; }
+  body.lb-open{ overflow:hidden; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .pad{ padding-left:clamp(18px,4vw,48px); padding-right:clamp(18px,4vw,48px); }
+
+  /* ---------- placeholders & médias réels ---------- */
+  .ph{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.14em; color:#6a6866;
+    background:repeating-linear-gradient(135deg,#151515 0 11px,#101010 11px 22px);
+  }
+  .media-wrap{ position:relative; width:100%; height:100%; overflow:hidden; background:var(--bg); }
+  .media-wrap img, .media-wrap video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .missing-note{ position:relative; z-index:1; line-height:1.5; }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:40; background:rgba(10,10,10,0.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  header .bar{
+    display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    padding:16px clamp(18px,4vw,48px); font-family:var(--mono); font-size:11px;
+    letter-spacing:0.18em; text-transform:uppercase;
+  }
+  header nav{ display:flex; gap:20px; flex-wrap:wrap; }
+  header nav a{ color:var(--muted); transition:color .2s; }
+  header nav a:hover{ color:var(--text); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO (photo en fond) ---------- */
+  .hero{ position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; }
+  .hero .media-wrap{ position:absolute; inset:0; z-index:0; }
+  .hero .media-wrap img, .hero .media-wrap video{ filter:grayscale(0.15) contrast(1.04); }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(to top, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.55) 42%, rgba(10,10,10,0.25) 68%, rgba(10,10,10,0.35) 100%);
+  }
+  .hero-content{ position:relative; z-index:2; width:100%; padding:clamp(28px,5vw,64px) clamp(18px,4vw,48px) clamp(40px,6vw,72px); }
+  .hero .meta{
+    display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; font-family:var(--mono);
+    font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--text);
+  }
+  h1.hero-title{
+    margin:clamp(16px,3vw,32px) 0 0; font-family:var(--serif); font-weight:200;
+    font-size:clamp(3.4rem,13vw,11rem); line-height:0.85; letter-spacing:-0.04em;
+  }
+  h1.hero-title em{ font-style:italic; color:var(--text); }
+  .hero .facts{
+    display:flex; justify-content:center; flex-wrap:wrap; gap:14px clamp(100px,16vw,260px);
+    margin-top:clamp(22px,3.5vw,40px); padding-top:14px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; line-height:1.7; letter-spacing:0.07em; color:var(--text);
+    text-align:center;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.block{ padding-top:clamp(56px,8vw,120px); padding-bottom:0; position:relative; }
+  section.block + section.block,
+  section.block + .photo-section{ margin-top:clamp(56px,8vw,120px); border-top:1px solid var(--line); }
+  .head{
+    display:flex; justify-content:space-between; align-items:baseline; gap:24px; flex-wrap:wrap;
+    padding-bottom:14px; border-bottom:1px solid var(--text);
+  }
+  .head h2{ margin:0; font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; }
+  .head p{
+    margin:0; max-width:46ch; font-family:var(--mono); font-size:11px; letter-spacing:0.05em; line-height:1.7;
+    color:var(--muted); text-align:justify; hyphens:auto;
+  }
+
+  /* ---------- LIGNES DE SÉRIES ---------- */
+  .row{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:clamp(14px,3vw,40px);
+    width:100%; padding:clamp(16px,2.4vw,28px) 0; border:none; border-bottom:1px solid var(--line);
+    background:none; color:inherit; font:inherit; text-align:left; cursor:pointer;
+    transition:background .25s;
+  }
+  .row:hover, .row:focus-visible{ background:rgba(244,242,238,0.06); }
+  .row .num{ font-family:var(--mono); font-size:11px; letter-spacing:0.14em; }
+  .row .title{ font-family:var(--serif); font-weight:200; font-size:clamp(1.7rem,5.2vw,3.8rem); line-height:1; letter-spacing:-0.02em; }
+  .row .tag{ font-family:var(--mono); font-size:11px; letter-spacing:0.1em; white-space:nowrap; }
+  .gallery-note{ margin-top:18px; font-family:var(--mono); font-size:0.72rem; color:var(--muted); }
+
+  /* ---------- GRILLE PORTRAITS ---------- */
+  .grid{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
+    background:var(--line); margin-top:clamp(22px,3.5vw,40px);
+  }
+  .cell{
+    position:relative; display:block; width:100%; aspect-ratio:4/5; padding:0; border:none;
+    color:inherit; font:inherit; cursor:pointer; overflow:hidden; background:var(--bg);
+  }
+  .cell:hover img, .cell:hover video{ transform:scale(1.05); }
+  .cell .idx{
+    position:absolute; bottom:8px; left:10px; z-index:2; font-family:var(--mono); font-size:10px;
+    letter-spacing:0.14em; color:#f4f2ee; mix-blend-mode:difference;
+  }
+
+  /* ---------- À PROPOS / CONTACT (photo en fond, pleine largeur) ---------- */
+  .photo-section{ position:relative; min-height:88vh; display:flex; align-items:center; overflow:hidden; padding:0; }
+  .photo-section .media-wrap{ position:absolute; inset:0; z-index:0; }
+  .photo-section .media-wrap img, .photo-section .media-wrap video{ filter:grayscale(0.1) contrast(1.03); }
+  .photo-section .scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.78) 45%, rgba(10,10,10,0.92) 100%);
+  }
+  .photo-section .inner{ position:relative; z-index:2; width:100%; padding:clamp(64px,9vw,140px) clamp(18px,4vw,48px); }
+  .kicker{ font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); }
+
+  .about{
+    max-width:620px; margin-top:32px;
+    display:flex; flex-direction:column; gap:28px;
+  }
+  .about .lead{
+    margin:0; font-family:var(--serif); font-weight:300; font-style:italic;
+    font-size:clamp(1.3rem,2.6vw,1.7rem); line-height:1.6; letter-spacing:-0.005em;
+    color:var(--text); text-align:justify; hyphens:auto; -webkit-hyphens:auto;
+  }
+  .about .body{
+    margin:0; padding-top:28px; border-top:1px solid var(--line);
+    line-height:1.85; color:var(--text); max-width:60ch; font-size:clamp(1.05rem,1.6vw,1.15rem);
+    text-align:justify; hyphens:auto; -webkit-hyphens:auto;
+  }
+
+  #contact .big{
+    margin:22px 0 clamp(30px,4.5vw,56px); font-family:var(--serif); font-weight:200;
+    font-size:clamp(2rem,6.5vw,4.8rem); line-height:1.05; letter-spacing:-0.03em; max-width:16ch;
+  }
+  #contact .big em{ font-style:italic; }
+  .links{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0 clamp(24px,4vw,64px);
+    border-top:1px solid var(--text);
+  }
+  .links > *{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:15px 0;
+    border-bottom:1px solid var(--line); transition:padding .25s;
+  }
+  .links a:hover{ padding-left:10px; }
+  .links .lbl{ font-family:var(--mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); }
+  .links .val{ font-size:16px; }
+
+  footer{
+    display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    padding:18px clamp(18px,4vw,48px) 34px; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  #lb{ position:fixed; inset:0; z-index:100; background:var(--bg); display:none; flex-direction:column; touch-action:manipulation; }
+  #lb.on{ display:flex; }
+  #lb .top{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:16px clamp(18px,4vw,48px); border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+  }
+  #lb .top button{ border:none; background:none; font:inherit; letter-spacing:0.16em; text-transform:uppercase; cursor:pointer; color:var(--text); }
+  #lb .top button:hover{ text-decoration:underline; }
+  #lb .stage{ position:relative; flex:1 1 auto; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#000; }
+  #lb .stage .media-wrap{ position:absolute; inset:0; }
+  #lb .stage .media-wrap img, #lb .stage .media-wrap video{ object-fit:contain; filter:none; transition:none; touch-action:manipulation; }
+  #lb .nav{ position:absolute; inset:0; z-index:2; display:flex; justify-content:space-between; pointer-events:none; }
+  #lb .nav button{
+    pointer-events:auto; width:clamp(56px,10vw,110px); border:none; background:none;
+    color:var(--text); font-family:var(--serif); font-size:28px; cursor:pointer; transition:background .2s;
+  }
+  #lb .nav button:hover{ background:rgba(255,255,255,0.09); }
+  #lb .foot{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px clamp(24px,4vw,64px);
+    padding:16px clamp(18px,4vw,48px) 22px; border-top:1px solid var(--line);
+    max-height:26vh; overflow-y:auto;
+  }
+  #lb .foot h3{ margin:0 0 6px; font-family:var(--serif); font-weight:200; font-size:1.6rem; letter-spacing:-0.02em; }
+  #lb .foot .specs{ font-family:var(--mono); font-size:10.5px; color:var(--muted); }
+  #lb .foot p{ margin:0; max-width:80ch; font-size:13.5px; line-height:1.8; color:#b8b5ae; text-align:justify; hyphens:auto; }
+  #lb .foot p:empty{ display:none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    header nav{
+      position:fixed; inset:0 0 auto auto; top:0; right:0; height:100vh; width:min(78vw,300px);
+      background:#111; border-left:1px solid var(--line); flex-direction:column; padding:90px 28px; gap:22px;
+      transform:translateX(100%); transition:transform .35s ease, visibility .35s;
+      visibility:hidden;
+    }
+    header nav.open{ transform:translateX(0); visibility:visible; }
+    .nav-toggle{ display:block; background:none; border:none; color:var(--text); font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; cursor:pointer; }
+    .row .title{ font-size:clamp(1.5rem,7vw,2.6rem); }
+    .grid{ grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:520px){
+    .grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a href="#top">Célia Quadrado</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false">Menu</button>
+    <nav id="navLinks">
+      <a href="#photographiederue">Photographie de Rue</a>
+      <a href="#photographieexperimentale">Photographie Expérimentale</a>
+      <a href="#portraits">Portraits</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="media-wrap"><div class="ph"><img src=images/IMG_8786.JPG></div></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <div class="meta">
+      <span>Photographie argentique, numérique et expérimentale</span>
+      <span>Lyon, France — 2024 / 2026</span>
+    </div>
+    <h1 class="hero-title">Rém<em>anences</em></h1>
+    <div class="facts">
+      <span>Neuf séries — deux corpus</span>
+      <span>Argentique &amp; numérique</span>
+      <span>Cyanotype, charbon, pellicule</span>
+    </div>
+  </div>
+</section>
+
+<!-- RUE -->
+<section id="photographiederue" class="pad block">
+  <div class="head">
+    <h2>01 — Photographie de rue</h2>
+    <p>Cinq séries menées entre Lyon, le Danemark, le Sri Lanka, l'Albanie et Arles.</p>
+  </div>
+  <div id="list-rue"></div>
+</section>
+
+<!-- EXPERIMENTAL -->
+<section id="photographieexperimentale" class="pad block">
+  <div class="head">
+    <h2>02 — Photographie expérimentale</h2>
+    <p>Expérimentations entre cyanotype, charbon, fragilité, altération.</p>
+  </div>
+  <div id="list-exp"></div>
+</section>
+
+<!-- PORTRAITS -->
+<section id="portraits" class="pad block">
+  <div class="head">
+    <h2>03 — Portraits</h2>
+    <p style="max-width:60ch;">Photographies numériques et argentiques, noir et blanc et couleur, 2025–2026. À travers portraits et autoportraits pris sur le vif, je cherche à saisir des présences et des expressions dans la spontanéité de l'instant.</p>
+  </div>
+  <div class="grid" id="grid-portraits"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="apropos" class="photo-section">
+  <div class="media-wrap"><div class="ph"><img src=images/IMG_8614.JPG></div></div>
+  <div class="scrim"></div>
+  <div class="inner pad">
+    <span class="kicker">04 — À propos</span>
+    <div class="about">
+      <p class="lead">Je pratique la photographie, en argentique et en numérique, à la recherche d'instants fugitifs et de fragments du quotidien. Mon travail s'attache aux présences et aux situations qui apparaissent dans l'observation du réel.</p>
+      <p class="body">Parallèlement, je développe une approche expérimentale autour de la fragilité et de la transformation de l'image. En travaillant avec des procédés comme le cyanotype et la matière pelliculaire, j'explore la dimension matérielle de la photographie et les altérations qui peuvent en révéler de nouvelles formes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="photo-section">
+  <div class="media-wrap"><div class="ph"><img src=images/IMG_8614.JPG></div></div>
+  <div class="scrim"></div>
+  <div class="inner pad">
+    <span class="kicker">05 — Contact</span>
+    <p class="big">N'hésites pas <em>à me contacter</em>.</p>
+    <div class="links">
+      <a href="mailto:quadradocelia@gmail.com"><span class="lbl">Email</span><span class="val">quadradocelia@gmail.com</span></a>
+      <a href="tel:07 67 81 28 30"><span class="lbl">Téléphone</span><span class="val">07 67 81 28 30</span></a>
+      <a href="#" target="_blank" rel="noopener"><span class="lbl">Instagram</span><span class="val">@remanen_ce</span></a>
+      <div><span class="lbl">Zone</span><span class="val">Lyon</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Célia Quadrado</span>
+  <span>Portfolio</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <div class="top">
+    <span id="lb-title"></span>
+    <span id="lb-count" style="color:var(--muted);"></span>
+    <button type="button" id="lb-close">Fermer ✕</button>
+  </div>
+  <div class="stage">
+    <div class="media-wrap" id="lb-media"></div>
+    <div class="nav" id="lb-nav">
+      <button type="button" id="lb-prev" aria-label="Précédente">‹</button>
+      <button type="button" id="lb-next" aria-label="Suivante">›</button>
+    </div>
+  </div>
+  <div class="foot">
+    <div>
+      <h3 id="lb-title2"></h3>
+      <span class="specs" id="lb-specs"></span>
+    </div>
+    <p id="lb-desc"></p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SERIES — contenu des galeries (identique à la version précédente).
+   Nomme tes fichiers exactement comme la valeur "file" et dépose-les
+   dans le dossier images/ : ils s'affichent automatiquement.
+============================================================ */
+const SERIES = {
+  rue: [
+    { key:'rue-5', title:'Albanie', num:'01', year:'2026',
+      desc:"Traverser l'Albanie dans sa globalité, des montagnes du nord aux villes côtières, à la découverte d'un pays à travers l'oeil de ma caméra. Après les séries en noir et blanc, cette fois la couleur s'impose : celle des reliefs, des façades et des routes qui serpentent entre les massifs. Une série pensée comme un carnet de voyage, entre paysage et vie urbaine, saisis au fil des déplacements à travers le pays.",
+      slides:[
+        {file:'albanie-01.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-02.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-03.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-04.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-05.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-06.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-07.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-08.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-09.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-10.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-11.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'},
+        {file:'albanie-12.jpeg', specs:'Photographies numériques — couleur — Albanie, 2026'}
+      ]},
+    { key:'rue-1', title:'Errances Parallèles', num:'02', year:'2025',
+      desc:"Vue de la restitution de mon projet au Musée d'art contemporain de Lyon, dans le cadre du projet MACSUP (9e édition). Suivre un inconnu. Marcher à son rythme. S'asseoir où il s'assoit, regarder ce qu'il regarde. J'observe un homme choisi au hasard : ses pauses, ses détours, ses hésitations, son errance. Quelques jours plus tard, je refais le même parcours, seule, pour en adopter le point de vue. Les diptyques mettent face à face ces deux expériences simultanées : la filature et la projection, l'observation et l'imagination. Au terme de la marche, il ne reste que des traces, des bancs, des rues, un fleuve, mais rien de l'homme lui-même.",
+      slides:[
+        {file:'errances-8.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-3.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-1.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-5.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-4.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-7.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-9.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-6.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'},
+        {file:'errances-2.png', specs:'Série de sept diptyques et texte — photographies numériques, noir et blanc, 2025'}
+      ]},
+    { key:'rue-2', title:'Anuradhapura', num:'03', year:'2025',
+      desc:"Au cœur de ce site sacré du bouddhisme, la série observe les formes de présence et de rassemblement qui se déploient autour du temple. Les images explorent la dimension rituelle et collective qui structure ce lieu de spiritualité.",
+      slides:[
+        {file:'anuradhapura.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'},
+        {file:'3284.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'},
+        {file:'4943.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'},
+        {file:'8291.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'},
+        {file:'0192.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'},
+        {file:'8293.jpeg', specs:'Photographies numériques — noir et blanc — Anuradhapura, Sri Lanka, 2025'}
+      ]},
+    { key:'rue-3', title:'Copenhague', num:'04', year:'2025',
+      desc:"Errer dans Copenhague. Regarder la ville se révéler au fil des rues, entre architectures, passants et fragments de scènes urbaines.",
+      slides:[
+        {file:'copenhague-01.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-02.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-03.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-04.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-05.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-06.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-07.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-08.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-09.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'},
+        {file:'copenhague-10.jpeg', specs:'Photographies numériques — noir et blanc — Danemark, 2025'}
+      ]},
+    { key:'rue-4', title:'Arles', num:'05', year:'2024',
+      desc:"À travers la photographie de rue, cette série observe les présences et les situations qui apparaissent au fil des déambulations dans la ville.",
+      slides:[
+        {file:'a1.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a2.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a3.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a4.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a5.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a6.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a7.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'},
+        {file:'a8.jpeg', specs:'Photographies argentiques — noir et blanc — 2024'}
+      ]}
+  ],
+  experimental: [
+    { key:'exp-1', title:'Vestiges', num:'01', year:'2026',
+      desc:"Que reste-t-il de la fonction mémorielle de la photographie quand l'image devient instable, altérée, vouée à disparaître ? À partir d'images d'archives personnelles, cette série explore la fragilité de la photographie et sa fonction mémorielle lorsqu'elle devient instable, altérée ou vouée à disparaître. À travers des tirages cyanotype sur différents supports fragiles, l'image se transforme, se détache de sa fonction représentative et devient matière : une surface fragile, traversée par le temps et les manipulations. Cette série interroge ce qui subsiste de la mémoire quand l'image se dérobe, faisant de chaque impression un témoignage de perte, de persistance et de temporalité.",
+      slides:[
+        {file:'vestiges-01.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-02.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-03.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-04.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-05.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-06.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-07.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-08.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-09.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'},
+        {file:'vestiges-10.jpg', specs:'Cyanotype sur papier de soie / feuille de riz — 2026'}
+      ]},
+    { key:'exp-2', title:'Sous la surface', num:'02', year:'2026',
+      desc:"Je ne cherche pas à montrer un lieu, mais ce qu'il en reste. Une empreinte, une rémanence. Le charbon se dépose sur l'image comme une poussière de mémoire : il épaissit, efface, contamine. La photographie devient surface marquée plutôt que vue, fragile plutôt que lisible. Sous la surface, il y a ce qui persiste quand presque tout a disparu. « Il faut savoir voir encore, voir malgré tout. » — Georges Didi-Huberman, Écorces, p. 61.",
+      slides:[
+        {file:'charb.jpg', specs:'Forme éditoriale — impression jet d\'encre et charbon sur papier calque — 2026'},
+        {file:'charb1.jpg', specs:'Forme éditoriale — impression jet d\'encre et charbon sur papier calque — 2026'},
+        {file:'charb2.jpg', specs:'Forme éditoriale — impression jet d\'encre et charbon sur papier calque — 2026'},
+        {file:'sous-la-surface-video.mov', specs:'Vidéo'}
+      ]},
+    { key:'exp-3', title:'Rémanence', num:'03', year:'2025',
+      desc:"Cette photographie interroge la présence du corps à travers son absence. Réalisée en cyanotype, la silhouette blanche surgit comme une apparition flottante, spectrale. Le corps se manifeste par l'empreinte qu'il laisse derrière lui, oscillant entre apparition et effacement. Le procédé transforme le corps en une absence lumineuse : dans le bleu dense du cyanotype, la silhouette apparaît comme une trace persistante, une rémanence du corps.",
+      slides:[{file:'rema.jpg', specs:'Cyanotype — 2025'}]},
+    { key:'exp-4', title:'Chair pelliculaire', num:'04', year:'2023',
+      desc:"La fragilité de la photographie est au centre de cette installation. Si au premier abord ce verre semble simplement teinté, c'est en s'approchant que l'on découvre la chair pelliculaire déposée dans son fond — l'une des fines couches d'une photographie développée en impression thermique. Cette installation joue avec le souvenir, qui survient comme une apparition fantomatique : il est difficile d'y distinguer la présence de cet enfant dans cette trace bleu turquoise. Cette pellicule semble laissée là par un liquide, comme le marc de café qui laisse une empreinte au fond des tasses, avec lequel on lit l'avenir. À l'inverse, ce marc nous fait apparaître le passé.",
+      slides:[{file:'chair.jpg', specs:'Chair pelliculaire dans verre — 2023'}]}
+  ],
+  portraits: [
+    { key:'port-1', title:'Portrait 01', num:'01', year:'2025 — 2026', desc:'', slides:[{file:'portrait-01.jpeg', specs:'2025 — 2026'}]},
+    { key:'port-6', title:'Autoportrait 02', num:'02', year:'2025 — 2026', desc:'', slides:[{file:'portrait-06.jpeg', specs:'2025 — 2026'}]},
+    { key:'port-2', title:'Portrait 03', num:'03', year:'2025 — 2026', desc:'', slides:[{file:'portrait-02.jpeg', specs:'2025 — 2026'}]},
+    { key:'port-5', title:'Portrait 04', num:'04', year:'2025 — 2026', desc:'', slides:[{file:'portrait-05.jpg', specs:'2025 — 2026'}]},
+    { key:'port-4', title:'Portrait 05', num:'05', year:'2025 — 2026', desc:'', slides:[{file:'portrait-04.jpeg', specs:'2025 — 2026'}]},
+    { key:'port-3', title:'Portrait 06', num:'06', year:'2025 — 2026', desc:'', slides:[{file:'portrait-03.jpeg', specs:'2025 — 2026'}]}
+  ]
+};
+
+/* ---------------- Détection image / vidéo + rendu avec repli ---------------- */
+function isVideoFile(file){ return /\.(mp4|mov|webm|ogg)$/i.test(file); }
+
+function mediaEl(file, alt, opts){
+  opts = opts || {};
+  const safeAlt = (alt || '').replace(/"/g, '&quot;');
+  if (isVideoFile(file)){
+    const attrs = opts.lightbox ? 'controls preload="metadata"' : 'muted loop autoplay playsinline preload="metadata"';
+    return `<video src="images/${file}" ${attrs} onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'missing-note',textContent:'Vidéo manquante : images/${file}'}))"></video>`;
+  }
+  return `<img src="images/${file}" alt="${safeAlt}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'missing-note',textContent:'Image manquante : images/${file}'}))">`;
+}
+
+/* ---------------- Lignes de séries (Rue / Expérimental) ---------------- */
+function buildRows(list, host){
+  list.forEach(it => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'row';
+    const tag = (it.slides.length > 1 ? it.slides.length + ' vues' : 'Vue unique') + '  ·  ' + it.year;
+    b.innerHTML = `<span class="num">${it.num}</span><span class="title">${it.title}</span><span class="tag">${tag}</span>`;
+    b.addEventListener('click', () => openLb(it, 0));
+    host.appendChild(b);
+  });
+}
+buildRows(SERIES.rue, document.getElementById('list-rue'));
+buildRows(SERIES.experimental, document.getElementById('list-exp'));
+
+/* ---------------- Grille portraits ---------------- */
+const gridHost = document.getElementById('grid-portraits');
+SERIES.portraits.forEach(p => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'cell';
+  b.innerHTML = `<div class="media-wrap">${mediaEl(p.slides[0].file, p.title)}</div><span class="idx">${p.num}</span>`;
+  b.addEventListener('click', () => openLb(p, 0));
+  gridHost.appendChild(b);
+});
+
+/* ---------------- Lightbox ---------------- */
+const lb = document.getElementById('lb');
+let current = null, index = 0, lastFocused = null;
+
+function openLb(it, i){
+  current = it; index = i;
+  lastFocused = document.activeElement;
+  lb.classList.add('on');
+  document.body.classList.add('lb-open');
+  renderLb();
+  document.getElementById('lb-close').focus();
+}
+function closeLb(){
+  current = null;
+  lb.classList.remove('on');
+  document.body.classList.remove('lb-open');
+  if (lastFocused) lastFocused.focus();
+}
+function step(d){
+  if (!current) return;
+  const t = current.slides.length;
+  index = (index + d + t) % t;
+  renderLb();
+}
+function renderLb(){
+  if (!current) return;
+  const s = current.slides[index];
+  const multi = current.slides.length > 1;
+  document.getElementById('lb-title').textContent = current.title;
+  document.getElementById('lb-title2').textContent = current.title;
+  document.getElementById('lb-count').textContent = multi ? (index + 1) + ' / ' + current.slides.length : '';
+  document.getElementById('lb-media').innerHTML = mediaEl(s.file, current.title, {lightbox:true});
+  document.getElementById('lb-specs').textContent = s.specs;
+  document.getElementById('lb-desc').textContent = current.desc || '';
+  document.getElementById('lb-nav').style.display = multi ? 'flex' : 'none';
+}
+document.getElementById('lb-close').addEventListener('click', closeLb);
+document.getElementById('lb-prev').addEventListener('click', () => step(-1));
+document.getElementById('lb-next').addEventListener('click', () => step(1));
+document.addEventListener('keydown', e => {
+  if (!current) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') step(-1);
+  if (e.key === 'ArrowRight') step(1);
+});
+
+/* ---------------- Menu mobile ---------------- */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
+</script>
+</body>
+</html>
