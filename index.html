@@ -182,6 +182,8 @@
     padding:18px clamp(18px,4vw,48px) 34px; border-top:1px solid var(--line);
     font-family:var(--mono); font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);
   }
+  footer a{ color:var(--muted); transition:color .2s; }
+  footer a:hover{ color:var(--text); }
 
   /* ---------- LIGHTBOX ---------- */
   #lb{ position:fixed; inset:0; z-index:100; background:var(--bg); display:none; flex-direction:column; touch-action:manipulation; }
@@ -322,7 +324,11 @@
 
 <footer>
   <span>© 2026 Célia Quadrado</span>
-  <span>Portfolio</span>
+  <span>
+    <a href="mentions-legales.html">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </span>
 </footer>
 
 <!-- LIGHTBOX -->
