@@ -81,14 +81,16 @@
     --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
     --mono:'IBM Plex Mono', monospace;
   }
-  html{ scroll-behavior:smooth; overflow-x:hidden; }
-  body{ margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:hidden; }
+  /* clip (et non hidden) : hidden transforme body en conteneur de défilement et casse le header sticky */
+  html{ scroll-behavior:smooth; overflow-x:clip; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased; line-height:1.5; overflow-x:clip; }
+  section[id]{ scroll-margin-top:52px; }
   *{ box-sizing:border-box; }
   a{ color:var(--text); text-decoration:none; }
   button{ touch-action:manipulation; }
   ::selection{ background:var(--text); color:var(--bg); }
   img,video{ max-width:100%; display:block; }
-  body.lb-open{ overflow:hidden; }
+  html.lb-open{ overflow:hidden; }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation:none !important; transition:none !important; } }
   .skip{ position:absolute; left:-9999px; top:0; z-index:200; padding:10px 14px; background:var(--text); color:var(--bg); font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; }
   .skip:focus{ left:12px; top:12px; }
@@ -111,8 +113,13 @@
 
   /* ---------- HEADER ---------- */
   header{
-    position:sticky; top:0; z-index:40; background:rgba(10,10,10,0.88); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:40; border-bottom:1px solid var(--line);
+  }
+  /* Flou porté par un pseudo-élément : un backdrop-filter sur header deviendrait
+     le repère du menu mobile en position:fixed au lieu de l'écran */
+  header::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background:rgba(10,10,10,0.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
   }
   header .bar{
     display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap;
@@ -286,7 +293,7 @@
       visibility:hidden;
     }
     header nav.open{ transform:translateX(0); visibility:visible; }
-    .nav-toggle{ display:block; background:none; border:none; color:var(--text); font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; cursor:pointer; }
+    .nav-toggle{ display:block; position:relative; z-index:1; background:none; border:none; color:var(--text); font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; cursor:pointer; }
     .row .title{ font-size:clamp(1.5rem,7vw,2.6rem); }
     .grid{ grid-template-columns:repeat(3,1fr); }
   }
@@ -297,7 +304,7 @@
 </head>
 <body>
 
-<a class="skip" href="#photographiederue">Aller au contenu</a>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 <header>
   <div class="bar">
@@ -312,6 +319,8 @@
     </nav>
   </div>
 </header>
+
+<main id="contenu">
 
 <!-- HERO -->
 <section id="top" class="hero">
@@ -421,6 +430,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <span>© 2026 Célia Quadrado</span>

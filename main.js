@@ -193,7 +193,7 @@ function openLb(it, i){
   lb.classList.add('on');
   lb.setAttribute('aria-hidden', 'false');
   setBackgroundInert(true);
-  document.body.classList.add('lb-open');
+  document.documentElement.classList.add('lb-open');
   renderLb();
   document.getElementById('lb-close').focus();
   it.slides.forEach((s, idx) => { if (idx !== i) preloadFile(s.file); });
@@ -203,7 +203,7 @@ function closeLb(){
   lb.classList.remove('on');
   lb.setAttribute('aria-hidden', 'true');
   setBackgroundInert(false);
-  document.body.classList.remove('lb-open');
+  document.documentElement.classList.remove('lb-open');
   if (lastFocused) lastFocused.focus();
 }
 function step(d){
@@ -243,15 +243,18 @@ document.addEventListener('keydown', e => {
 /* ---------------- Menu mobile ---------------- */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
-function closeNav(){
-  navLinks.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', 'false');
-}
-navToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
+function setNav(open){
+  navLinks.classList.toggle('open', open);
   navToggle.setAttribute('aria-expanded', open);
-});
+  navToggle.textContent = open ? 'Fermer' : 'Menu';
+}
+function closeNav(){ setNav(false); }
+navToggle.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+// Referme le menu quand le focus clavier en sort (hors bouton Menu)
+navLinks.addEventListener('focusout', e => {
+  if (navLinks.classList.contains('open') && e.relatedTarget && !navLinks.contains(e.relatedTarget) && e.relatedTarget !== navToggle) closeNav();
+});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && navLinks.classList.contains('open')){
     closeNav();
