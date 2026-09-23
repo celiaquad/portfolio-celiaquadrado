@@ -526,6 +526,7 @@ function openLb(it, i){
   document.body.classList.add('lb-open');
   renderLb();
   document.getElementById('lb-close').focus();
+  it.slides.forEach((s, idx) => { if (idx !== i) preloadFile(s.file); });
 }
 function closeLb(){
   current = null;
