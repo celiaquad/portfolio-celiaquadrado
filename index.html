@@ -477,7 +477,14 @@ function mediaEl(file, alt, opts){
     const attrs = opts.lightbox ? 'controls preload="metadata"' : 'muted loop autoplay playsinline preload="metadata"';
     return `<video src="images/${file}" ${attrs} onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'missing-note',textContent:'Vidéo manquante : images/${file}'}))"></video>`;
   }
-  return `<img src="images/${file}" alt="${safeAlt}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'missing-note',textContent:'Image manquante : images/${file}'}))">`;
+  const loading = opts.lightbox ? 'eager' : 'lazy';
+  const priority = opts.lightbox ? 'fetchpriority="high"' : '';
+  return `<img src="images/${file}" alt="${safeAlt}" loading="${loading}" ${priority} style="opacity:0;transition:opacity .3s" onload="this.style.opacity=1" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'missing-note',textContent:'Image manquante : images/${file}'}))">`;
+}
+
+function preloadFile(file){
+  if (!file || isVideoFile(file)) return;
+  new Image().src = 'images/' + file;
 }
 
 /* ---------------- Lignes de séries (Rue / Expérimental) ---------------- */
@@ -489,6 +496,8 @@ function buildRows(list, host){
     const tag = (it.slides.length > 1 ? it.slides.length + ' vues' : 'Vue unique') + '  ·  ' + it.year;
     b.innerHTML = `<span class="num">${it.num}</span><span class="title">${it.title}</span><span class="tag">${tag}</span>`;
     b.addEventListener('click', () => openLb(it, 0));
+    b.addEventListener('mouseenter', () => preloadFile(it.slides[0].file), { once:true });
+    b.addEventListener('focus', () => preloadFile(it.slides[0].file), { once:true });
     host.appendChild(b);
   });
 }
@@ -541,6 +550,11 @@ function renderLb(){
   document.getElementById('lb-specs').textContent = s.specs;
   document.getElementById('lb-desc').textContent = current.desc || '';
   document.getElementById('lb-nav').style.display = multi ? 'flex' : 'none';
+  if (multi) {
+    const n = current.slides.length;
+    preloadFile(current.slides[(index + 1) % n].file);
+    preloadFile(current.slides[(index - 1 + n) % n].file);
+  }
 }
 document.getElementById('lb-close').addEventListener('click', closeLb);
 document.getElementById('lb-prev').addEventListener('click', () => step(-1));
