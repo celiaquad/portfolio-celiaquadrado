@@ -89,7 +89,9 @@
   ::selection{ background:var(--text); color:var(--bg); }
   img,video{ max-width:100%; display:block; }
   body.lb-open{ overflow:hidden; }
-  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation:none !important; transition:none !important; } }
+  .skip{ position:absolute; left:-9999px; top:0; z-index:200; padding:10px 14px; background:var(--text); color:var(--bg); font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; }
+  .skip:focus{ left:12px; top:12px; }
 
   .pad{ padding-left:clamp(18px,4vw,48px); padding-right:clamp(18px,4vw,48px); }
 
@@ -199,7 +201,7 @@
     background:linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.78) 45%, rgba(10,10,10,0.92) 100%);
   }
   .photo-section .inner{ position:relative; z-index:2; width:100%; padding:clamp(64px,9vw,140px) clamp(18px,4vw,48px); }
-  .kicker{ font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text); }
+  .kicker{ display:block; margin:0; font-weight:400; font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--text); }
 
   .about{
     max-width:620px; margin-top:32px;
@@ -290,10 +292,12 @@
 </head>
 <body>
 
+<a class="skip" href="#photographiederue">Aller au contenu</a>
+
 <header>
   <div class="bar">
     <a href="#top">Célia Quadrado</a>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false">Menu</button>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav id="navLinks">
       <a href="#photographiederue">Photographie de Rue</a>
       <a href="#photographieexperimentale">Photographie Expérimentale</a>
@@ -354,7 +358,7 @@
   <div class="media-wrap"><div class="ph"><img src="images/IMG_8614.JPG" srcset="images/IMG_8614-640.JPG 640w, images/IMG_8614-1024.JPG 1024w, images/IMG_8614-1500.JPG 1500w, images/IMG_8614.JPG 2000w" sizes="100vw" loading="lazy" alt="Célia Quadrado, photographe à Lyon — photographie argentique et numérique"></div></div>
   <div class="scrim"></div>
   <div class="inner pad">
-    <span class="kicker">04 — À propos</span>
+    <h2 class="kicker">04 — À propos</h2>
     <div class="about">
       <p class="lead">Je pratique la photographie, en argentique et en numérique, à la recherche d'instants fugitifs et de fragments du quotidien. Mon travail s'attache aux présences et aux situations qui apparaissent dans l'observation du réel.</p>
       <p class="lead">Parallèlement, je développe une approche expérimentale autour de la fragilité et de la transformation de l'image. En travaillant avec des procédés comme le cyanotype et la matière pelliculaire, j'explore la dimension matérielle de la photographie et les altérations qui peuvent en révéler de nouvelles formes.</p>
@@ -367,7 +371,7 @@
   <div class="media-wrap"><div class="ph"><img src="images/IMG_8614.JPG" srcset="images/IMG_8614-640.JPG 640w, images/IMG_8614-1024.JPG 1024w, images/IMG_8614-1500.JPG 1500w, images/IMG_8614.JPG 2000w" sizes="100vw" loading="lazy" alt="Contacter Célia Quadrado, photographe à Lyon — portraits, shooting et photographie"></div></div>
   <div class="scrim"></div>
   <div class="inner pad">
-    <span class="kicker">05 — Contact</span>
+    <h2 class="kicker">05 — Contact</h2>
     <p class="big">N'hésitez pas <em>à me contacter</em>.</p>
     <div class="links">
       <a href="mailto:quadradocelia@gmail.com"><span class="lbl">Email</span><span class="val">quadradocelia@gmail.com</span></a>
@@ -388,9 +392,9 @@
 </footer>
 
 <!-- LIGHTBOX -->
-<div id="lb">
+<div id="lb" role="dialog" aria-modal="true" aria-labelledby="lb-title2" aria-hidden="true">
   <div class="top">
-    <span id="lb-title"></span>
+    <span id="lb-title" aria-hidden="true"></span>
     <span id="lb-count" style="color:var(--muted);"></span>
     <button type="button" id="lb-close">Fermer ✕</button>
   </div>
@@ -575,10 +579,19 @@ SERIES.portraits.forEach(p => {
 const lb = document.getElementById('lb');
 let current = null, index = 0, lastFocused = null;
 
+// Rend le reste de la page inerte pendant que la visionneuse est ouverte (piège le focus)
+function setBackgroundInert(on){
+  Array.from(document.body.children).forEach(el => {
+    if (el !== lb && el.tagName !== 'SCRIPT') el.inert = on;
+  });
+}
+
 function openLb(it, i){
   current = it; index = i;
   lastFocused = document.activeElement;
   lb.classList.add('on');
+  lb.setAttribute('aria-hidden', 'false');
+  setBackgroundInert(true);
   document.body.classList.add('lb-open');
   renderLb();
   document.getElementById('lb-close').focus();
@@ -587,6 +600,8 @@ function openLb(it, i){
 function closeLb(){
   current = null;
   lb.classList.remove('on');
+  lb.setAttribute('aria-hidden', 'true');
+  setBackgroundInert(false);
   document.body.classList.remove('lb-open');
   if (lastFocused) lastFocused.focus();
 }
@@ -603,7 +618,8 @@ function renderLb(){
   document.getElementById('lb-title').textContent = current.title;
   document.getElementById('lb-title2').textContent = current.title;
   document.getElementById('lb-count').textContent = multi ? (index + 1) + ' / ' + current.slides.length : '';
-  document.getElementById('lb-media').innerHTML = mediaEl(s.file, current.title + ' — Célia Quadrado, photographe à Lyon', {lightbox:true});
+  const alt = current.title + (multi ? ', image ' + (index + 1) + ' sur ' + current.slides.length : '') + ' — Célia Quadrado, photographe à Lyon';
+  document.getElementById('lb-media').innerHTML = mediaEl(s.file, alt, {lightbox:true});
   document.getElementById('lb-specs').textContent = s.specs;
   document.getElementById('lb-desc').textContent = current.desc || '';
   document.getElementById('lb-nav').style.display = multi ? 'flex' : 'none';
@@ -626,14 +642,21 @@ document.addEventListener('keydown', e => {
 /* ---------------- Menu mobile ---------------- */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
+function closeNav(){
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}
 navToggle.addEventListener('click', () => {
   const open = navLinks.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', open);
 });
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', 'false');
-}));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && navLinks.classList.contains('open')){
+    closeNav();
+    navToggle.focus();
+  }
+});
 </script>
 </body>
 </html>
