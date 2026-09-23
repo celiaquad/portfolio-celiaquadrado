@@ -11,6 +11,7 @@
 <link rel="canonical" href="https://portfolio.quadrado.fr/">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -19,16 +20,16 @@
 <meta property="og:url" content="https://portfolio.quadrado.fr/">
 <meta property="og:title" content="Célia Quadrado — Photographe à Lyon | Portraits, Shooting &amp; Photographie">
 <meta property="og:description" content="Rémanences — portfolio de Célia Quadrado, photographe à Lyon : portraits, shooting photo, photographie de rue argentique et numérique, photographie expérimentale (cyanotype, charbon).">
-<meta property="og:image" content="https://portfolio.quadrado.fr/images/IMG_8786-1024.JPG">
-<meta property="og:image:width" content="1024">
-<meta property="og:image:height" content="768">
+<meta property="og:image" content="https://portfolio.quadrado.fr/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Célia Quadrado, photographe à Lyon — série Rémanences">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Célia Quadrado — Photographe à Lyon | Portraits, Shooting &amp; Photographie">
 <meta name="twitter:description" content="Portraits, shooting photo, photographie de rue et expérimentale — argentique, numérique, cyanotype.">
-<meta name="twitter:image" content="https://portfolio.quadrado.fr/images/IMG_8786-1024.JPG">
+<meta name="twitter:image" content="https://portfolio.quadrado.fr/images/og-image.jpg">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -38,7 +39,7 @@
   "name": "Célia Quadrado",
   "alternateName": "Rémanences",
   "url": "https://portfolio.quadrado.fr/",
-  "image": "https://portfolio.quadrado.fr/images/IMG_8786-1024.JPG",
+  "image": "https://portfolio.quadrado.fr/images/og-image.jpg",
   "jobTitle": "Photographe",
   "description": "Photographe à Lyon — portraits, shooting photo, photographie de rue argentique et numérique, photographie expérimentale (cyanotype, charbon).",
   "address": {
@@ -175,6 +176,11 @@
   .row .num{ font-family:var(--mono); font-size:11px; letter-spacing:0.14em; }
   .row .title{ font-family:var(--serif); font-weight:200; font-size:clamp(1.7rem,5.2vw,3.8rem); line-height:1; letter-spacing:-0.02em; }
   .row .tag{ font-family:var(--mono); font-size:11px; letter-spacing:0.1em; white-space:nowrap; }
+  /* Contenu de secours sans JavaScript (robots, navigateurs sans JS) */
+  .ns-series{ padding:clamp(16px,2.4vw,28px) 0; border-bottom:1px solid var(--line); }
+  .ns-series .row{ padding:0; border:none; cursor:default; }
+  .ns-series .row:hover{ background:none; }
+  .ns-series p{ margin:12px 0 0; max-width:80ch; font-size:13.5px; line-height:1.8; color:#b8b5ae; }
   .gallery-note{ margin-top:18px; font-family:var(--mono); font-size:0.72rem; color:var(--muted); }
 
   /* ---------- GRILLE PORTRAITS ---------- */
@@ -333,6 +339,19 @@
     <p>Cinq séries menées entre Lyon, le Danemark, le Sri Lanka, l'Albanie et Arles.</p>
   </div>
   <div id="list-rue"></div>
+  <noscript>
+    <!-- À garder synchronisé avec SERIES.rue dans le script plus bas -->
+    <article class="ns-series"><div class="row"><span class="num">01</span><h3 class="title" style="margin:0;font-weight:200;">Albanie</h3><span class="tag">12 vues  ·  2026</span></div>
+      <p>Traverser l'Albanie dans sa globalité, des montagnes du nord aux villes côtières, à la découverte d'un pays à travers l'oeil de ma caméra. Après les séries en noir et blanc, cette fois la couleur s'impose : celle des reliefs, des façades et des routes qui serpentent entre les massifs. Une série pensée comme un carnet de voyage, entre paysage et vie urbaine, saisis au fil des déplacements à travers le pays.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">02</span><h3 class="title" style="margin:0;font-weight:200;">Errances Parallèles</h3><span class="tag">9 vues  ·  2025</span></div>
+      <p>Vue de la restitution de mon projet au Musée d'art contemporain de Lyon, dans le cadre du projet MACSUP (9e édition). Suivre un inconnu. Marcher à son rythme. S'asseoir où il s'assoit, regarder ce qu'il regarde. J'observe un homme choisi au hasard : ses pauses, ses détours, ses hésitations, son errance. Quelques jours plus tard, je refais le même parcours, seule, pour en adopter le point de vue. Les diptyques mettent face à face ces deux expériences simultanées : la filature et la projection, l'observation et l'imagination. Au terme de la marche, il ne reste que des traces, des bancs, des rues, un fleuve, mais rien de l'homme lui-même.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">03</span><h3 class="title" style="margin:0;font-weight:200;">Anuradhapura</h3><span class="tag">6 vues  ·  2025</span></div>
+      <p>Au cœur de ce site sacré du bouddhisme, la série observe les formes de présence et de rassemblement qui se déploient autour du temple. Les images explorent la dimension rituelle et collective qui structure ce lieu de spiritualité.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">04</span><h3 class="title" style="margin:0;font-weight:200;">Copenhague</h3><span class="tag">10 vues  ·  2025</span></div>
+      <p>Errer dans Copenhague. Regarder la ville se révéler au fil des rues, entre architectures, passants et fragments de scènes urbaines.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">05</span><h3 class="title" style="margin:0;font-weight:200;">Arles</h3><span class="tag">7 vues  ·  2024</span></div>
+      <p>À travers la photographie de rue, cette série observe les présences et les situations qui apparaissent au fil des déambulations dans la ville.</p></article>
+  </noscript>
 </section>
 
 <!-- EXPERIMENTAL -->
@@ -342,6 +361,17 @@
     <p>Expérimentations entre cyanotype, charbon, fragilité, altération.</p>
   </div>
   <div id="list-exp"></div>
+  <noscript>
+    <!-- À garder synchronisé avec SERIES.experimental dans le script plus bas -->
+    <article class="ns-series"><div class="row"><span class="num">01</span><h3 class="title" style="margin:0;font-weight:200;">Vestiges</h3><span class="tag">10 vues  ·  2026</span></div>
+      <p>Que reste-t-il de la fonction mémorielle de la photographie quand l'image devient instable, altérée, vouée à disparaître ? À partir d'images d'archives personnelles, cette série explore la fragilité de la photographie et sa fonction mémorielle lorsqu'elle devient instable, altérée ou vouée à disparaître. À travers des tirages cyanotype sur différents supports fragiles, l'image se transforme, se détache de sa fonction représentative et devient matière : une surface fragile, traversée par le temps et les manipulations. Cette série interroge ce qui subsiste de la mémoire quand l'image se dérobe, faisant de chaque impression un témoignage de perte, de persistance et de temporalité.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">02</span><h3 class="title" style="margin:0;font-weight:200;">Sous la surface</h3><span class="tag">4 vues  ·  2026</span></div>
+      <p>Je ne cherche pas à montrer un lieu, mais ce qu'il en reste. Une empreinte, une rémanence. Le charbon se dépose sur l'image comme une poussière de mémoire : il épaissit, efface, contamine. La photographie devient surface marquée plutôt que vue, fragile plutôt que lisible. Sous la surface, il y a ce qui persiste quand presque tout a disparu. « Il faut savoir voir encore, voir malgré tout. » — Georges Didi-Huberman, Écorces, p. 61.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">03</span><h3 class="title" style="margin:0;font-weight:200;">Rémanence</h3><span class="tag">Vue unique  ·  2025</span></div>
+      <p>Cette photographie interroge la présence du corps à travers son absence. Réalisée en cyanotype, la silhouette blanche surgit comme une apparition flottante, spectrale. Le corps se manifeste par l'empreinte qu'il laisse derrière lui, oscillant entre apparition et effacement. Le procédé transforme le corps en une absence lumineuse : dans le bleu dense du cyanotype, la silhouette apparaît comme une trace persistante, une rémanence du corps.</p></article>
+    <article class="ns-series"><div class="row"><span class="num">04</span><h3 class="title" style="margin:0;font-weight:200;">Chair pelliculaire</h3><span class="tag">Vue unique  ·  2023</span></div>
+      <p>La fragilité de la photographie est au centre de cette installation. Si au premier abord ce verre semble simplement teinté, c'est en s'approchant que l'on découvre la chair pelliculaire déposée dans son fond — l'une des fines couches d'une photographie développée en impression thermique. Cette installation joue avec le souvenir, qui survient comme une apparition fantomatique : il est difficile d'y distinguer la présence de cet enfant dans cette trace bleu turquoise. Cette pellicule semble laissée là par un liquide, comme le marc de café qui laisse une empreinte au fond des tasses, avec lequel on lit l'avenir. À l'inverse, ce marc nous fait apparaître le passé.</p></article>
+  </noscript>
 </section>
 
 <!-- PORTRAITS -->
@@ -351,6 +381,17 @@
     <p style="max-width:60ch;">Photographies numériques et argentiques, noir et blanc et couleur, 2025–2026. À travers portraits et autoportraits pris sur le vif, je cherche à saisir des présences et des expressions dans la spontanéité de l'instant.</p>
   </div>
   <div class="grid" id="grid-portraits"></div>
+  <noscript>
+    <!-- À garder synchronisé avec SERIES.portraits dans le script plus bas -->
+    <div class="grid">
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-01-800.webp" alt="Portrait 01 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">01</span></div>
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-06-800.webp" alt="Autoportrait 02 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">02</span></div>
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-04-800.webp" alt="Portrait 03 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">03</span></div>
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-05-800.webp" alt="Portrait 04 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">04</span></div>
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-02-800.webp" alt="Portrait 05 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">05</span></div>
+      <div class="cell"><div class="media-wrap"><img src="images/portrait-03-800.webp" alt="Portrait 06 — portrait photographique, Célia Quadrado, photographe à Lyon" loading="lazy"></div><span class="idx">06</span></div>
+    </div>
+  </noscript>
 </section>
 
 <!-- ABOUT -->
